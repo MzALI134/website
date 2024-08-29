@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John Doe - Web Developer Extraordinaire</title>
+    <title>Ray - Web Developer Extraordinaire</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
@@ -14,6 +14,16 @@
             --accent-color: #e74c3c;
             --text-color: #333;
             --bg-color: #ecf0f1;
+            --card-bg-color: #fff;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #34495e;
+            --secondary-color: #2980b9;
+            --accent-color: #c0392b;
+            --text-color: #ecf0f1;
+            --bg-color: #2c3e50;
+            --card-bg-color: #34495e;
         }
 
         * {
@@ -28,6 +38,7 @@
             color: var(--text-color);
             background-color: var(--bg-color);
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .container {
@@ -39,10 +50,11 @@
         header {
             background-color: var(--primary-color);
             color: #fff;
-            padding: 2rem 0;
+            padding: 1rem 0;
             position: fixed;
             width: 100%;
             z-index: 1000;
+            transition: background-color 0.3s ease;
         }
 
         nav {
@@ -59,6 +71,7 @@
         .nav-links {
             display: flex;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links li {
@@ -73,6 +86,19 @@
         }
 
         .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
             color: var(--secondary-color);
         }
 
@@ -115,12 +141,12 @@
         }
 
         .skill-card {
-            background-color: #fff;
+            background-color: var(--card-bg-color);
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
 
         .skill-card:hover {
@@ -140,10 +166,11 @@
         }
 
         .project-card {
-            background-color: #fff;
+            background-color: var(--card-bg-color);
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
         }
 
         .project-card img {
@@ -183,6 +210,9 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-family: inherit;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .form-group textarea {
@@ -211,6 +241,7 @@
             color: #fff;
             text-align: center;
             padding: 2rem 0;
+            transition: background-color 0.3s ease;
         }
 
         .social-links {
@@ -238,19 +269,24 @@
 <body>
     <header>
         <nav class="container">
-            <div class="logo">JD</div>
+            <div class="logo">Ray</div>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
 
     <section class="hero">
         <div class="hero-content">
-            <h1>John Doe</h1>
+            <h1>Ray</h1>
             <p>Web Developer Extraordinaire</p>
         </div>
     </section>
@@ -338,7 +374,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2023 John Doe. All rights reserved.</p>
+            <p>&copy; 2023 Ray. All rights reserved.</p>
             <ul class="social-links">
                 <li><a href="#"><i class="fab fa-github"></i></a></li>
                 <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
@@ -409,6 +445,19 @@
                 end: "bottom 20%",
                 toggleActions: "play none none reverse"
             }
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            htmlElement.setAttribute('data-theme', 
+                htmlElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'
+            );
+            themeIcon.classList.toggle('fa-moon');
+            themeIcon.classList.toggle('fa-sun');
         });
     </script>
 </body>
